@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.CustomMapper">
+  <resultMap id="BaseResultMap" type="com.kaishengit.entity.Custom">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="custom_name" jdbcType="VARCHAR" property="customName" />
+    <result column="custom_tel" jdbcType="VARCHAR" property="customTel" />
+    <result column="card" jdbcType="VARCHAR" property="card" />
+    <result column="card_type" jdbcType="VARCHAR" property="cardType" />
+    <result column="custom_image" jdbcType="VARCHAR" property="customImage" />
+    <result column="card_image" jdbcType="VARCHAR" property="cardImage" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="piao_id" jdbcType="INTEGER" property="piaoId" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="six" jdbcType="VARCHAR" property="six" />
+    <result column="card_image_back" jdbcType="VARCHAR" property="cardImageBack" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, custom_name, custom_tel, card, card_type, custom_image, card_image, address, 
+    piao_id, age, six, card_image_back, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.kaishengit.entity.CustomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from custom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from custom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from custom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kaishengit.entity.CustomExample">
+    delete from custom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kaishengit.entity.Custom">
+    insert into custom (id, custom_name, custom_tel, 
+      card, card_type, custom_image, 
+      card_image, address, piao_id, 
+      age, six, card_image_back, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{customName,jdbcType=VARCHAR}, #{customTel,jdbcType=VARCHAR}, 
+      #{card,jdbcType=VARCHAR}, #{cardType,jdbcType=VARCHAR}, #{customImage,jdbcType=VARCHAR}, 
+      #{cardImage,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{piaoId,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{six,jdbcType=VARCHAR}, #{cardImageBack,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kaishengit.entity.Custom">
+    insert into custom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customName != null">
+        custom_name,
+      </if>
+      <if test="customTel != null">
+        custom_tel,
+      </if>
+      <if test="card != null">
+        card,
+      </if>
+      <if test="cardType != null">
+        card_type,
+      </if>
+      <if test="customImage != null">
+        custom_image,
+      </if>
+      <if test="cardImage != null">
+        card_image,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="piaoId != null">
+        piao_id,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="six != null">
+        six,
+      </if>
+      <if test="cardImageBack != null">
+        card_image_back,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customName != null">
+        #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customTel != null">
+        #{customTel,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null">
+        #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null">
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="customImage != null">
+        #{customImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImage != null">
+        #{cardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="piaoId != null">
+        #{piaoId,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="six != null">
+        #{six,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImageBack != null">
+        #{cardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kaishengit.entity.CustomExample" resultType="java.lang.Long">
+    select count(*) from custom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update custom
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.customName != null">
+        custom_name = #{record.customName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customTel != null">
+        custom_tel = #{record.customTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.card != null">
+        card = #{record.card,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardType != null">
+        card_type = #{record.cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customImage != null">
+        custom_image = #{record.customImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardImage != null">
+        card_image = #{record.cardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piaoId != null">
+        piao_id = #{record.piaoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.six != null">
+        six = #{record.six,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardImageBack != null">
+        card_image_back = #{record.cardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update custom
+    set id = #{record.id,jdbcType=INTEGER},
+      custom_name = #{record.customName,jdbcType=VARCHAR},
+      custom_tel = #{record.customTel,jdbcType=VARCHAR},
+      card = #{record.card,jdbcType=VARCHAR},
+      card_type = #{record.cardType,jdbcType=VARCHAR},
+      custom_image = #{record.customImage,jdbcType=VARCHAR},
+      card_image = #{record.cardImage,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      piao_id = #{record.piaoId,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      six = #{record.six,jdbcType=VARCHAR},
+      card_image_back = #{record.cardImageBack,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.entity.Custom">
+    update custom
+    <set>
+      <if test="customName != null">
+        custom_name = #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customTel != null">
+        custom_tel = #{customTel,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null">
+        card = #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null">
+        card_type = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="customImage != null">
+        custom_image = #{customImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImage != null">
+        card_image = #{cardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="piaoId != null">
+        piao_id = #{piaoId,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="six != null">
+        six = #{six,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImageBack != null">
+        card_image_back = #{cardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kaishengit.entity.Custom">
+    update custom
+    set custom_name = #{customName,jdbcType=VARCHAR},
+      custom_tel = #{customTel,jdbcType=VARCHAR},
+      card = #{card,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=VARCHAR},
+      custom_image = #{customImage,jdbcType=VARCHAR},
+      card_image = #{cardImage,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      piao_id = #{piaoId,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      six = #{six,jdbcType=VARCHAR},
+      card_image_back = #{cardImageBack,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

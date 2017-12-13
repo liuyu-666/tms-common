@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.ScenicMapper">
+  <resultMap id="BaseResultMap" type="com.kaishengit.entity.Scenic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="manager_tel" jdbcType="VARCHAR" property="managerTel" />
+    <result column="gem_longitude" jdbcType="VARCHAR" property="gemLongitude" />
+    <result column="gem_latitude" jdbcType="VARCHAR" property="gemLatitude" />
+    <result column="scenic_license" jdbcType="VARCHAR" property="scenicLicense" />
+    <result column="manager_card" jdbcType="VARCHAR" property="managerCard" />
+    <result column="manager_card_type" jdbcType="VARCHAR" property="managerCardType" />
+    <result column="manager_card_image" jdbcType="VARCHAR" property="managerCardImage" />
+    <result column="manager_card_image_back" jdbcType="VARCHAR" property="managerCardImageBack" />
+    <result column="scenic_account_id" jdbcType="INTEGER" property="scenicAccountId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kaishengit.entity.Scenic">
+    <result column="simple_content" jdbcType="LONGVARCHAR" property="simpleContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, scenic_name, level, manager_name, address, status, create_time, manager_tel, 
+    gem_longitude, gem_latitude, scenic_license, manager_card, manager_card_type, manager_card_image, 
+    manager_card_image_back, scenic_account_id
+  </sql>
+  <sql id="Blob_Column_List">
+    simple_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.kaishengit.entity.ScenicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.kaishengit.entity.ScenicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scenic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scenic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kaishengit.entity.ScenicExample">
+    delete from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kaishengit.entity.Scenic">
+    insert into scenic (id, scenic_name, level, 
+      manager_name, address, status, 
+      create_time, manager_tel, gem_longitude, 
+      gem_latitude, scenic_license, manager_card, 
+      manager_card_type, manager_card_image, manager_card_image_back, 
+      scenic_account_id, simple_content)
+    values (#{id,jdbcType=INTEGER}, #{scenicName,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{managerName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{managerTel,jdbcType=VARCHAR}, #{gemLongitude,jdbcType=VARCHAR}, 
+      #{gemLatitude,jdbcType=VARCHAR}, #{scenicLicense,jdbcType=VARCHAR}, #{managerCard,jdbcType=VARCHAR}, 
+      #{managerCardType,jdbcType=VARCHAR}, #{managerCardImage,jdbcType=VARCHAR}, #{managerCardImageBack,jdbcType=VARCHAR}, 
+      #{scenicAccountId,jdbcType=INTEGER}, #{simpleContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kaishengit.entity.Scenic">
+    insert into scenic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="scenicName != null">
+        scenic_name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="managerName != null">
+        manager_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="managerTel != null">
+        manager_tel,
+      </if>
+      <if test="gemLongitude != null">
+        gem_longitude,
+      </if>
+      <if test="gemLatitude != null">
+        gem_latitude,
+      </if>
+      <if test="scenicLicense != null">
+        scenic_license,
+      </if>
+      <if test="managerCard != null">
+        manager_card,
+      </if>
+      <if test="managerCardType != null">
+        manager_card_type,
+      </if>
+      <if test="managerCardImage != null">
+        manager_card_image,
+      </if>
+      <if test="managerCardImageBack != null">
+        manager_card_image_back,
+      </if>
+      <if test="scenicAccountId != null">
+        scenic_account_id,
+      </if>
+      <if test="simpleContent != null">
+        simple_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null">
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerTel != null">
+        #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="gemLongitude != null">
+        #{gemLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="gemLatitude != null">
+        #{gemLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicLicense != null">
+        #{scenicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCard != null">
+        #{managerCard,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardType != null">
+        #{managerCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardImage != null">
+        #{managerCardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardImageBack != null">
+        #{managerCardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicAccountId != null">
+        #{scenicAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="simpleContent != null">
+        #{simpleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kaishengit.entity.ScenicExample" resultType="java.lang.Long">
+    select count(*) from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update scenic
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicName != null">
+        scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerName != null">
+        manager_name = #{record.managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.managerTel != null">
+        manager_tel = #{record.managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gemLongitude != null">
+        gem_longitude = #{record.gemLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gemLatitude != null">
+        gem_latitude = #{record.gemLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicLicense != null">
+        scenic_license = #{record.scenicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerCard != null">
+        manager_card = #{record.managerCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerCardType != null">
+        manager_card_type = #{record.managerCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerCardImage != null">
+        manager_card_image = #{record.managerCardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerCardImageBack != null">
+        manager_card_image_back = #{record.managerCardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicAccountId != null">
+        scenic_account_id = #{record.scenicAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.simpleContent != null">
+        simple_content = #{record.simpleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update scenic
+    set id = #{record.id,jdbcType=INTEGER},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      manager_name = #{record.managerName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      manager_tel = #{record.managerTel,jdbcType=VARCHAR},
+      gem_longitude = #{record.gemLongitude,jdbcType=VARCHAR},
+      gem_latitude = #{record.gemLatitude,jdbcType=VARCHAR},
+      scenic_license = #{record.scenicLicense,jdbcType=VARCHAR},
+      manager_card = #{record.managerCard,jdbcType=VARCHAR},
+      manager_card_type = #{record.managerCardType,jdbcType=VARCHAR},
+      manager_card_image = #{record.managerCardImage,jdbcType=VARCHAR},
+      manager_card_image_back = #{record.managerCardImageBack,jdbcType=VARCHAR},
+      scenic_account_id = #{record.scenicAccountId,jdbcType=INTEGER},
+      simple_content = #{record.simpleContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update scenic
+    set id = #{record.id,jdbcType=INTEGER},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      manager_name = #{record.managerName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      manager_tel = #{record.managerTel,jdbcType=VARCHAR},
+      gem_longitude = #{record.gemLongitude,jdbcType=VARCHAR},
+      gem_latitude = #{record.gemLatitude,jdbcType=VARCHAR},
+      scenic_license = #{record.scenicLicense,jdbcType=VARCHAR},
+      manager_card = #{record.managerCard,jdbcType=VARCHAR},
+      manager_card_type = #{record.managerCardType,jdbcType=VARCHAR},
+      manager_card_image = #{record.managerCardImage,jdbcType=VARCHAR},
+      manager_card_image_back = #{record.managerCardImageBack,jdbcType=VARCHAR},
+      scenic_account_id = #{record.scenicAccountId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.entity.Scenic">
+    update scenic
+    <set>
+      <if test="scenicName != null">
+        scenic_name = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null">
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerTel != null">
+        manager_tel = #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="gemLongitude != null">
+        gem_longitude = #{gemLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="gemLatitude != null">
+        gem_latitude = #{gemLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicLicense != null">
+        scenic_license = #{scenicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCard != null">
+        manager_card = #{managerCard,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardType != null">
+        manager_card_type = #{managerCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardImage != null">
+        manager_card_image = #{managerCardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="managerCardImageBack != null">
+        manager_card_image_back = #{managerCardImageBack,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicAccountId != null">
+        scenic_account_id = #{scenicAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="simpleContent != null">
+        simple_content = #{simpleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kaishengit.entity.Scenic">
+    update scenic
+    set scenic_name = #{scenicName,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      manager_tel = #{managerTel,jdbcType=VARCHAR},
+      gem_longitude = #{gemLongitude,jdbcType=VARCHAR},
+      gem_latitude = #{gemLatitude,jdbcType=VARCHAR},
+      scenic_license = #{scenicLicense,jdbcType=VARCHAR},
+      manager_card = #{managerCard,jdbcType=VARCHAR},
+      manager_card_type = #{managerCardType,jdbcType=VARCHAR},
+      manager_card_image = #{managerCardImage,jdbcType=VARCHAR},
+      manager_card_image_back = #{managerCardImageBack,jdbcType=VARCHAR},
+      scenic_account_id = #{scenicAccountId,jdbcType=INTEGER},
+      simple_content = #{simpleContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kaishengit.entity.Scenic">
+    update scenic
+    set scenic_name = #{scenicName,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      manager_tel = #{managerTel,jdbcType=VARCHAR},
+      gem_longitude = #{gemLongitude,jdbcType=VARCHAR},
+      gem_latitude = #{gemLatitude,jdbcType=VARCHAR},
+      scenic_license = #{scenicLicense,jdbcType=VARCHAR},
+      manager_card = #{managerCard,jdbcType=VARCHAR},
+      manager_card_type = #{managerCardType,jdbcType=VARCHAR},
+      manager_card_image = #{managerCardImage,jdbcType=VARCHAR},
+      manager_card_image_back = #{managerCardImageBack,jdbcType=VARCHAR},
+      scenic_account_id = #{scenicAccountId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
