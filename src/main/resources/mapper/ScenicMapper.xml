@@ -136,7 +136,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.entity.Scenic">
+  <insert id="insert" parameterType="com.kaishengit.entity.Scenic" useGeneratedKeys="true" keyProperty="id">
     insert into scenic (id, scenic_name, level, 
       manager_name, address, status, 
       create_time, manager_tel, gem_longitude, 
