@@ -1,9 +1,10 @@
 package com.kaishengit.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TicketOrder {
+public class TicketOrder implements Serializable {
     private Integer id;
 
     private String piaoNum;

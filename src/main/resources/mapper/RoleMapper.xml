@@ -141,7 +141,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectByUserId" resultType="com.kaishengit.entity.Role">
+      SELECT
+          *
+      FROM
+          role r,
+          role_user ru
+      WHERE
+          r.id = ru.role_id
+      AND user_id = #{id}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update role
     <set>
       <if test="record.id != null">

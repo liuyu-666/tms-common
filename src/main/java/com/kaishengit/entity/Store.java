@@ -1,8 +1,9 @@
 package com.kaishengit.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Store {
+public class Store implements Serializable {
     private Integer id;
 
     private String managerName;

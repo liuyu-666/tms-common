@@ -1,6 +1,8 @@
 package com.kaishengit.entity;
 
-public class RoleUserKey {
+import java.io.Serializable;
+
+public class RoleUserKey implements Serializable {
     private Integer roleId;
 
     private Integer userId;

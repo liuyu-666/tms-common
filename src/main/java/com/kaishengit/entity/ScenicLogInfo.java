@@ -1,8 +1,9 @@
 package com.kaishengit.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ScenicLogInfo {
+public class ScenicLogInfo implements Serializable {
     private Integer id;
 
     private Integer scenicAccountId;
